@@ -13,10 +13,21 @@ public class ClassEmployee {
 
         System.out.println("the person has high value is:" + HighestSalary.name + " " + "with amount :" + HighestSalary.amount );
 
-        Map<String,List<Employee>> groupRegion = employee.stream().collect(Collectors.groupingBy(a -> a.region));
+        Map<String,Integer> groupRegionTotal = employee.stream().collect(Collectors.groupingBy(a -> a.region ,Collectors.summingInt(b -> b.amount)));
 
-        for(Map.Entry<String,List<Employee>> entry : groupRegion.entrySet()){
+        System.out.println("-----------------------Total amount Group by Region---------------------");
+
+        for(Map.Entry<String,Integer> entry :groupRegionTotal.entrySet()){
             System.out.println(entry.getKey() + ":" + entry.getValue());
         }
+
+        Map<String,List<Employee>> groupRegion = employee.stream().collect(Collectors.groupingBy(a -> a.region));
+
+        System.out.println("----------------------- Group by Region---------------------");
+
+        for(Map.Entry<String,List<Employee>> entry :groupRegion.entrySet()){
+            System.out.println(entry.getKey() + ":" + entry.getValue());
+        }
+
     }
 }
